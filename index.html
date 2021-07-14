@@ -4,10 +4,44 @@
 <h1>Hello World</h1>
 <p>I'm hosted with GitHub Pages. Now on to better things.</p>
 
+<button onmousedown="postData(strURL)">Test</button>
+
 <script>
     console.log("enter script body")
 
+    //-------------------------------------------------------------------------
+    function logit(){
+        console.log("in the logit function");
 
+    }
+    strURL = 'https://api.weather.gov/gridpoints/TOP/31,80/forecast';
+    //-------------------------------------------------------------------------
+    async function postData(url = '', data = {}) {
+        strURL = 'https://api.weather.gov/gridpoints/TOP/31,80/forecast';
+        // Default options are marked with *
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                //'Content-Type': 'application/json'
+                'Content-Type': 'Access-Control-Allow-Origin'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+postData(strURL, { answer: 42 })
+  .then(data => {
+    console.log(data); // JSON data parsed by `data.json()` call
+  });
+
+               
 </script>
+
 </body>
 </html>
